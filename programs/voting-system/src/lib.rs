@@ -17,16 +17,17 @@ declare_id!("8eGrvBEjnLQG6y6gigFKcQj7pweQZXq6GSyDWd1cQASh");
 // #[derive(Accounts)]
 // pub struct Initialize {}
 
-use anchor_lang::prelude::*;
+use anchor_lang::prelude::*;        //#include<ios>
 
 // Define the Solana program
 #[program]                          //like int main() 
-pub mod voting_system {             // defines a module / function()
+
+pub mod voting_system {             // defines a module / function()        
     use super::*;                   // it means that * is the parent module 
 
     // Initialize the voting system
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {         
-        let voting_account = &mut ctx.accounts.voting_account;
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {             
+        let voting_account = &mut ctx.accounts.voting_account;          
         voting_account.total_votes = 0;
         voting_account.candidates = Vec::new(); // Initialize candidates as an empty vector
         Ok(())

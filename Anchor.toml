@@ -16,3 +16,7 @@ wallet = "~/.config/solana/id.json"
 
 [scripts]
 test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+initialize = "ts-node scripts/initialize.ts"
+add_candidate = "ts-node scripts/add_candidate.ts"
+vote = "ts-node scripts/vote.ts"
+show_votes = "ts-node scripts/show_votes.ts"
