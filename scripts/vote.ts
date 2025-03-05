@@ -4,7 +4,7 @@ const provider = anchor.AnchorProvider.local();
 anchor.setProvider(provider);
 
 const program = anchor.workspace.VotingSystem;
-const votingAccountPublicKey = new anchor.web3.PublicKey("Ee1iyqQMLFaUCpgkzy8C5rfffwvDvtGn8FY5D2cLr16c");
+const votingAccountPublicKey = new anchor.web3.PublicKey("DPnDX7hMQo4jj6jPKVUwnzF8A4KcxZNoJ8gq2x9sgQ1f");
 
 async function main() {
     const candidateIndex = parseInt(process.argv[2]);

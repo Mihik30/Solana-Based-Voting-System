@@ -26,22 +26,31 @@ pub mod voting_system {             // defines a module / function()
     use super::*;                   // it means that * is the parent module 
 
     // Initialize the voting system
-    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {             
-        let voting_account = &mut ctx.accounts.voting_account;          
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        let voting_account = &mut ctx.accounts.voting_account;
         voting_account.total_votes = 0;
-        voting_account.candidates = Vec::new(); // Initialize candidates as an empty vector
+        voting_account.candidates.clear(); // Clear all candidates
         Ok(())
     }
+    
 
     // Add a candidate to the voting system
     pub fn add_candidate(ctx: Context<AddCandidate>, name: String) -> Result<()> {
         let voting_account = &mut ctx.accounts.voting_account;
-        voting_account.candidates.push(Candidate {
-            name,
-            votes: 0,
-        });
+    
+        // Check if candidate already exists
+        for candidate in &voting_account.candidates {
+            if candidate.name == name {
+                return Err(ErrorCode::CandidateAlreadyExists.into()); // Correct reference
+            }
+        }
+    
+        // Add new candidate
+        voting_account.candidates.push(Candidate { name, votes: 0 });
         Ok(())
     }
+    
+    
 
     // Vote for a candidate
     pub fn vote(ctx: Context<Vote>, candidate_index: u8) -> Result<()> {
@@ -108,8 +117,13 @@ pub struct Candidate {
 }
 
 // Custom error codes
+// Custom error codes
 #[error_code]
 pub enum ErrorCode {
     #[msg("Invalid candidate index")]
     InvalidCandidate,
+
+    #[msg("Candidate already exists!")]
+    CandidateAlreadyExists,
 }
+
